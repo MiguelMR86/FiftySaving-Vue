@@ -4,7 +4,7 @@ Esta es una simple aplicación web desarrollada con Vue 3 y Vite. La función de
 
 ## Capturas de pantalla
 
-![Captura de pantalla 2023-09-13 122722](https://github.com/MiguelMR86/FiftySaving-Vue/assets/90867675/2523faad-5d37-4b3c-8f86-2d1241070865)
+![image](https://github.com/MiguelMR86/FiftySaving-Vue/assets/90867675/a2ebb9a0-7218-4629-8eef-1379502b2ff0)
 
 
 ## Características
