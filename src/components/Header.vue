@@ -11,5 +11,6 @@
         display: grid;
         place-items: center;
         text-align: center;
+        padding: 2em;
     }
 </style>

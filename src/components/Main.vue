@@ -87,8 +87,8 @@
         height: 90%;
         display: grid;
         place-items: center;
+        margin-top: 2em;
     }
-
     .container{
         width: 90%;
         max-width: 700px;

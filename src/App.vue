@@ -13,7 +13,7 @@
 <style scoped>
   .app{
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     background-color: rgb(13, 22, 22);
     color: rgb(111, 219, 219);
   }
