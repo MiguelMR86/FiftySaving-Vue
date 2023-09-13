@@ -21,17 +21,17 @@ Clona el repositorio de FiftySaving-Vue desde GitHub:
 3. Inicia la aplicación.
 
 ```shell
-$ git clone https://github.com/MiguelMR86/FiftySaving-Vue
-$ cd FiftySaving-Vue
-$ code . # En caso de que lo tengas configurado.
-$ npm install
+git clone https://github.com/MiguelMR86/FiftySaving-Vue
+cd FiftySaving-Vue
+code . # En caso de que lo tengas configurado.
+npm install
 ```
 
 ## Uso
 Inicia la aplicación
 
 ```shell
-$ npm run dev
+npm run dev
 ```
 
 ## 📱 Contacto
