@@ -4,7 +4,8 @@ Esta es una simple aplicación web desarrollada con Vue 3 y Vite. La función de
 
 ## Capturas de pantalla
 
-![Captura de pantalla 1](https://github.com/MiguelMR86/Calculator-Vue/blob/assets/90867675/4fe77e86-7f55-4d9c-a130-36fa0699f61e.png)
+![Captura de pantalla 2023-09-13 122722](https://github.com/MiguelMR86/FiftySaving-Vue/assets/90867675/2523faad-5d37-4b3c-8f86-2d1241070865)
+
 
 ## Características
 
