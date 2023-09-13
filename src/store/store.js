@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { checkLocalStorage } from '../controllers/functions.js'
+import { checkLocalStorage, updateLocalStorage, createLocalStorage, calculationAlgorithm } from '../controllers/functions.js'
 const storage = checkLocalStorage()
 
 export const useStore = defineStore({
@@ -8,17 +8,11 @@ export const useStore = defineStore({
         storage: storage,
     }),
     actions: {
-        increment() {
-            this.storage.days++
-        },
-        eraseNumber(number) {
-            this.storage.numbers = this.numbers.filter(n => n !== number)
-        },
         spin() {
             const roulete = document.querySelector('.roulete')
             const quantity = document.querySelector('.quantity')
             const spinBtn = document.querySelector('.spin-btn')
-            const random = storage.numbers[Math.floor(Math.random() * storage.numbers.length)]
+            const random = calculationAlgorithm(storage.numbers, storage.day.lastDigit)
             
             roulete.classList.add('spin')
             quantity.classList.add('reduce')
@@ -28,7 +22,17 @@ export const useStore = defineStore({
                 roulete.classList.remove('spin')
                 quantity.classList.remove('reduce')
                 quantity.textContent = random
-            }, 3000)
+            }, 1000)
         },
+        accept(number) {
+            this.storage.numbers = this.storage.numbers.filter(n => n != number)
+            this.storage.day.lastDigit = Number(number)
+            this.storage.day.dailySpin = true
+            updateLocalStorage(this.storage)
+        },
+        resetStorage() {
+            createLocalStorage(new Date().toISOString().split('T')[0])
+            this.storage = checkLocalStorage()
+        }
     }
 })
