@@ -19,76 +19,58 @@
         accept(document.querySelector('.quantity').innerText)
         dailySpin.value = storage.day.dailySpin
     }
-    
-    // const day = new Date().toISOString().split('T')[0]
-    // let day2 
-    // setTimeout(() => {
-    //     day2 = new Date().toISOString().split('T')[0]
-    //     console.log(day, '\n',day2)
-    //     console.log(day == day2)
-    // }, 1000)
-    
 </script>
 
 <template>
-    <main>
-        <div v-if='storage.day.number < 51' class='container'>
-            <div class='day'>
-                <h1>Day {{ storage.day.number }}</h1>
-            </div>
-            
-            <div class='roulete'>
-                <h2 v-if='!dailySpin' class='quantity'>?</h2>
-                <div v-else class='exists-quantity'>
-                    <h2 class='quantity'>{{ storage.day.lastDigit }}</h2>
-                    <p class='euro'>€</p>
-                </div>
-            </div>
-            
-            <div v-if='!dailySpin' class='child-container'>
-                <button class='spin-btn' v-if='!onSpin' @click='handleSpin'>
-                    <h1>SPIN</h1>
-                </button>
-                
-                <div v-else class='handle-container'>
-                    <button @click='handleAccept'>
-                        <h1>Agree</h1>
-                    </button>
-                    <button @click='handleSpin'>
-                        <h1>Reject</h1>
-                    </button>
-                </div>
-            </div>
-            <div v-else>
-                <h1 class='daily-spin'>
-                    You've already spin the roulotte today, now it's your turn to save the money
-                </h1>
+    <div v-if='storage.day.number < 51' class='container'>
+        <div class='day'>
+            <h1>Day {{ storage.day.number }}</h1>
+        </div>
+        
+        <div class='roulete'>
+            <h2 v-if='!dailySpin' class='quantity'>?</h2>
+            <div v-else class='exists-quantity'>
+                <h2 class='quantity'>{{ storage.day.lastDigit }}</h2>
+                <p class='euro'>€</p>
             </div>
         </div>
-        <div v-else class='container'>
-            <div class="end-text-container">
-                <h1 class='end-text'>
-                    You have completed the game, congratulations! 
-                    
-                </h1>
-                <h1 class="end-text">You have also saved</h1>
-                <h1 class="end-text money">1275 €</h1>
-            </div>
-            <button class='absolute-btn' @click='resetStorage'>
-                <h1>Reiniciar</h1>
+        
+        <div v-if='!dailySpin' class='child-container'>
+            <button class='spin-btn' v-if='!onSpin' @click='handleSpin'>
+                <h1>SPIN</h1>
             </button>
+            
+            <div v-else class='handle-container'>
+                <button @click='handleAccept'>
+                    <h1>Agree</h1>
+                </button>
+                <button @click='handleSpin'>
+                    <h1>Reject</h1>
+                </button>
+            </div>
         </div>
-    </main>
+        <div v-else>
+            <h1 class='daily-spin'>
+                You've already spin the roulotte today, now it's your turn to save the money
+            </h1>
+        </div>
+    </div>
+    <div v-else class='container'>
+        <div class="end-text-container">
+            <h1 class='end-text'>
+                You have completed the game, congratulations! 
+                
+            </h1>
+            <h1 class="end-text">You have also saved</h1>
+            <h1 class="end-text money">1275 €</h1>
+        </div>
+        <button class='absolute-btn' @click='resetStorage'>
+            <h1>Reiniciar</h1>
+        </button>
+    </div>
 </template>
 
 <style scoped>
-    main {
-        width: 100%;
-        height: 90%;
-        display: grid;
-        place-items: center;
-        margin-top: 2em;
-    }
     .container{
         width: 90%;
         max-width: 700px;
@@ -98,8 +80,11 @@
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        align-items: center;        
-        position: relative;
+        align-items: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);       
     }
     .daily-spin, .end-text{
         font-size: 1.5em;
@@ -131,8 +116,8 @@
     .euro{
         position: absolute;
         font-size: 2em;
-        top: -.8em;
-        right: -2.5em;
+        top: -.6em;
+        right: -1.6em;
         background-color: rgb(13, 22, 22);
         border-radius: 50%;
         width: 60px;
@@ -151,21 +136,6 @@
         height:135px;
         display: grid;
         place-items: center ;
-    }
-    button {
-        background-color: rgb(13, 22, 22);
-        color: rgb(111, 219, 219);
-        padding: .5em 2em;
-        border-radius: 5px;
-        border: 3px solid rgb(13, 22, 22);
-        box-shadow: 0 0 10px rgba(0,0,0,0.2);
-        transition: all .3s ease-in-out;
-    }
-    button:hover {
-        background-color: rgb(111, 219, 219);
-        color: rgb(13, 22, 22);
-        box-shadow: 0 0 10px rgba(0,0,0,0.4);
-        border: 3px solid rgb(13, 22, 22);
     }
     .absolute-btn{
         position: absolute;

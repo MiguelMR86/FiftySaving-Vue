@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { checkLocalStorage, updateLocalStorage, createLocalStorage, calculationAlgorithm } from '../controllers/functions.js'
+
 const storage = checkLocalStorage()
 
 export const useStore = defineStore({
@@ -13,11 +14,11 @@ export const useStore = defineStore({
             const quantity = document.querySelector('.quantity')
             const spinBtn = document.querySelector('.spin-btn')
             const random = calculationAlgorithm(storage.numbers, storage.day.lastDigit)
-            
+
             roulete.classList.add('spin')
             quantity.classList.add('reduce')
             if (spinBtn) spinBtn.disabled = true
-            
+
             setTimeout(() => {
                 roulete.classList.remove('spin')
                 quantity.classList.remove('reduce')
