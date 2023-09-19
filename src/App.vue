@@ -6,6 +6,7 @@
   import Main from './components/Main.vue'
   import Login from './components/Login.vue';
   import LogoutBtn from './components/LogoutBtn.vue';
+  import Modal from './components/Modal.vue';
   
   const sotre = useStore()
   const user = ref(null);
@@ -27,6 +28,7 @@
       <Main v-if="user"/>
       <Login v-else-if="!user"/>
       <LogoutBtn v-if="user"/>
+      <Modal />
   </div>
 </template>
 

@@ -1,6 +1,7 @@
 <script setup>
     import { useStore } from '../store/store.js'
-
+    import HelpBtn from './HelpBtn.vue'
+    
     const store = useStore()
 
     const handleAccept = () => {
@@ -12,6 +13,9 @@
 <template>
     <div v-if="store.storage">
         <div v-if='store.storage.day.number < 51' class='container'>
+            
+            <HelpBtn />
+
             <div class='day'>
                 <h1>Day {{ store.storage.day.number }}</h1>
             </div>
