@@ -1,17 +1,20 @@
 <script setup>
   import { onMounted, ref } from 'vue';
   import { auth } from './config/firebase.js';
+  import { useStore } from './store/store.js'
   import Header from './components/Header.vue'
   import Main from './components/Main.vue'
   import Login from './components/Login.vue';
   import LogoutBtn from './components/LogoutBtn.vue';
   
+  const sotre = useStore()
   const user = ref(null);
 
   onMounted(() => {
     auth.onAuthStateChanged((authCurrentuser) => {
       if (authCurrentuser) {
         user.value = authCurrentuser;
+        sotre.setStorage(authCurrentuser.uid)
       } 
     });
   });

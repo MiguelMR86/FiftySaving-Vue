@@ -1,39 +1,68 @@
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { checkLocalStorage, updateLocalStorage, createLocalStorage, calculationAlgorithm } from '../controllers/functions.js'
+import { auth } from '../config/firebase.js'
+import { getStorage, updateStorage, createStorage, calculationAlgorithm } from '../controllers/firebase.functions.js'
 
-const storage = checkLocalStorage()
+export const useStore = defineStore('store', () => {
+    const storage = ref(null)
+    const onSpin = ref(false)
+    const dailySpin = ref(false)
+    
+    const setStorage = (id) => {
+        getStorage(id).then(newStorage => {
+            storage.value = newStorage
+            dailySpin.value = storage.value.day.dailySpin
+        })
+    }
 
-export const useStore = defineStore({
-    id: 'store',
-    state: () => ({
-        storage: storage,
-    }),
-    actions: {
-        spin() {
-            const roulete = document.querySelector('.roulete')
-            const quantity = document.querySelector('.quantity')
-            const spinBtn = document.querySelector('.spin-btn')
-            const random = calculationAlgorithm(storage.numbers, storage.day.lastDigit)
+    const handleSpin = () => {
+        const roulete = document.querySelector('.roulete')
+        const quantity = document.querySelector('.quantity')
+        const spinBtn = document.querySelector('.spin-btn')
+        const random = calculationAlgorithm(storage.value.numbers, storage.value.day.lastDigit)
 
-            roulete.classList.add('spin')
-            quantity.classList.add('reduce')
-            if (spinBtn) spinBtn.disabled = true
+        setTimeout(() => {
+            onSpin.value = true
+        }, 1000)
 
-            setTimeout(() => {
-                roulete.classList.remove('spin')
-                quantity.classList.remove('reduce')
-                quantity.textContent = random
-            }, 1000)
-        },
-        accept(number) {
-            this.storage.numbers = this.storage.numbers.filter(n => n != number)
-            this.storage.day.lastDigit = Number(number)
-            this.storage.day.dailySpin = true
-            updateLocalStorage(this.storage)
-        },
-        resetStorage() {
-            createLocalStorage(new Date().toISOString().split('T')[0])
-            this.storage = checkLocalStorage()
-        }
+        roulete.classList.add('spin')
+        quantity.classList.add('reduce')
+        if (spinBtn) spinBtn.disabled = true
+
+        setTimeout(() => {
+            roulete.classList.remove('spin')
+            quantity.classList.remove('reduce')
+            quantity.textContent = random
+        }, 1000)
+    }
+
+    const acceptNumber = (number) => {
+        updateOnSpin()
+        storage.value.numbers = storage.value.numbers.filter(n => n != number)
+        storage.value.day.lastDigit = Number(number)
+        storage.value.day.dailySpin = true
+        updateStorage(storage.value.id, storage.value)
+        dailySpin.value = storage.value.day.dailySpin
+    }
+
+    const resetStorage = () => {
+        createStorage(auth.currentUser.uid, new Date().toISOString().split('T')[0])
+        storage.value = checkLocalStorage()
+    }
+
+    const updateOnSpin = () => {
+        onSpin.value = !onSpin.value
+    }
+    
+    
+    return {
+        storage,
+        onSpin,
+        dailySpin,
+        setStorage,
+        updateOnSpin,
+        handleSpin,
+        acceptNumber,
+        resetStorage
     }
 })

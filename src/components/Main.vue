@@ -1,72 +1,62 @@
 <script setup>
     import { useStore } from '../store/store.js'
-    import { ref } from 'vue';
-    
-    const { storage, spin, accept, resetStorage } = useStore()
-    
-    const onSpin = ref(false)
-    const dailySpin = ref(storage.day.dailySpin)
 
-    const handleSpin = () => {
-        setTimeout(() => {
-            onSpin.value = true
-        }, 1000)
-        spin()
-    }
+    const store = useStore()
 
     const handleAccept = () => {
-        onSpin.value = false
-        accept(document.querySelector('.quantity').innerText)
-        dailySpin.value = storage.day.dailySpin
+        const quantity = document.querySelector('.quantity').innerText
+        store.acceptNumber(quantity)
     }
 </script>
 
 <template>
-    <div v-if='storage.day.number < 51' class='container'>
-        <div class='day'>
-            <h1>Day {{ storage.day.number }}</h1>
-        </div>
-        
-        <div class='roulete'>
-            <h2 v-if='!dailySpin' class='quantity'>?</h2>
-            <div v-else class='exists-quantity'>
-                <h2 class='quantity'>{{ storage.day.lastDigit }}</h2>
-                <p class='euro'>€</p>
+    <div v-if="store.storage">
+        <div v-if='store.storage.day.number < 51' class='container'>
+            <div class='day'>
+                <h1>Day {{ store.storage.day.number }}</h1>
             </div>
-        </div>
-        
-        <div v-if='!dailySpin' class='child-container'>
-            <button class='spin-btn' v-if='!onSpin' @click='handleSpin'>
-                <h1>SPIN</h1>
-            </button>
             
-            <div v-else class='handle-container'>
-                <button @click='handleAccept'>
-                    <h1>Agree</h1>
+            <div class='roulete'>
+                <h2 v-if='!store.dailySpin' class='quantity'>?</h2>
+                <div v-else class='exists-quantity'>
+                    <h2 class='quantity'>{{ store.storage.day.lastDigit }}</h2>
+                    <p class='euro'>€</p>
+                </div>
+            </div>
+            
+            <div v-if='!store.dailySpin' class='child-container'>
+                <button class='spin-btn' v-if='!store.onSpin' @click='store.handleSpin'>
+                    <h1>SPIN</h1>
                 </button>
-                <button @click='handleSpin'>
-                    <h1>Reject</h1>
-                </button>
+                
+                <div v-else class='handle-container'>
+                    <button @click='handleAccept'>
+                        <h1>Agree</h1>
+                    </button>
+                    <button @click='store.handleSpin'>
+                        <h1>Reject</h1>
+                    </button>
+                </div>
+            </div>
+            <div v-else>
+                <h1 class='daily-spin'>
+                    You've already spin the roulotte today, now it's your turn to save the money
+                </h1>
             </div>
         </div>
-        <div v-else>
-            <h1 class='daily-spin'>
-                You've already spin the roulotte today, now it's your turn to save the money
-            </h1>
+        <div v-else class='container'>
+            <div class="end-text-container">
+                <h1 class='end-text'>
+                    You have completed the game, congratulations! 
+                    
+                </h1>
+                <h1 class="end-text">You have also saved</h1>
+                <h1 class="end-text money">1275 €</h1>
+            </div>
+            <button class='absolute-btn' @click='store.resetStorage'>
+                <h1>Reiniciar</h1>
+            </button>
         </div>
-    </div>
-    <div v-else class='container'>
-        <div class="end-text-container">
-            <h1 class='end-text'>
-                You have completed the game, congratulations! 
-                
-            </h1>
-            <h1 class="end-text">You have also saved</h1>
-            <h1 class="end-text money">1275 €</h1>
-        </div>
-        <button class='absolute-btn' @click='resetStorage'>
-            <h1>Reiniciar</h1>
-        </button>
     </div>
 </template>
 
@@ -168,6 +158,7 @@
     @keyframes reduce {
         0% {
             transform: scale(1);
+            opacity: 1;
         }
         /* 50%{
             opacity: 0.5;
