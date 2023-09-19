@@ -1,5 +1,6 @@
 <script setup>
     import { useStore } from '../store/store.js'
+<<<<<<< HEAD
     import { ref } from 'vue';
     
     const { storage, spin, accept, resetStorage } = useStore()
@@ -13,6 +14,11 @@
         }, 1000)
         spin()
     }
+=======
+    import HelpBtn from './HelpBtn.vue'
+    
+    const store = useStore()
+>>>>>>> 6fa6517 (Help button ( Implemented ))
 
     const handleAccept = () => {
         onSpin.value = false
@@ -31,8 +37,16 @@
 </script>
 
 <template>
+<<<<<<< HEAD
     <main>
         <div v-if='storage.day.number < 51' class='container'>
+=======
+    <div v-if="store.storage">
+        <div v-if='store.storage.day.number < 51' class='container'>
+            
+            <HelpBtn />
+
+>>>>>>> 6fa6517 (Help button ( Implemented ))
             <div class='day'>
                 <h1>Day {{ storage.day.number }}</h1>
             </div>
