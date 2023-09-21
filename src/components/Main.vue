@@ -1,6 +1,6 @@
 <script setup>
     import { useStore } from '../store/store.js'
-<<<<<<< HEAD
+    import HelpBtn from './HelpBtn.vue'
     import { ref } from 'vue';
     
     const { storage, spin, accept, resetStorage } = useStore()
@@ -14,11 +14,6 @@
         }, 1000)
         spin()
     }
-=======
-    import HelpBtn from './HelpBtn.vue'
-    
-    const store = useStore()
->>>>>>> 6fa6517 (Help button ( Implemented ))
 
     const handleAccept = () => {
         onSpin.value = false
@@ -26,27 +21,14 @@
         dailySpin.value = storage.day.dailySpin
     }
     
-    // const day = new Date().toISOString().split('T')[0]
-    // let day2 
-    // setTimeout(() => {
-    //     day2 = new Date().toISOString().split('T')[0]
-    //     console.log(day, '\n',day2)
-    //     console.log(day == day2)
-    // }, 1000)
-    
 </script>
 
 <template>
-<<<<<<< HEAD
-    <main>
+    <div>
         <div v-if='storage.day.number < 51' class='container'>
-=======
-    <div v-if="store.storage">
-        <div v-if='store.storage.day.number < 51' class='container'>
             
             <HelpBtn />
-
->>>>>>> 6fa6517 (Help button ( Implemented ))
+            
             <div class='day'>
                 <h1>Day {{ storage.day.number }}</h1>
             </div>
@@ -92,7 +74,7 @@
                 <h1>Reiniciar</h1>
             </button>
         </div>
-    </main>
+    </div>
 </template>
 
 <style scoped>
@@ -112,8 +94,11 @@
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        align-items: center;        
-        position: relative;
+        align-items: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);       
     }
     .daily-spin, .end-text{
         font-size: 1.5em;
