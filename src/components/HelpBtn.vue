@@ -1,6 +1,9 @@
 <script setup>
     const handelHelp = () => {
         const help = document.querySelector('.help')
+        if (help.classList.contains('init-help')) {
+            help.classList.remove('init-help')
+        }
         if (help.classList.contains('deactive')) {
             help.classList.remove('deactive')
             help.classList.add('active')

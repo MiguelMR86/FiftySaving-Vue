@@ -1,4 +1,5 @@
 <script setup>
+    import { onMounted } from 'vue';
     const handelDeactivate = () => {
         const help = document.querySelector('.help')
         if (help.classList.contains('active')) {
@@ -13,7 +14,7 @@
 </script>
 
 <template>
-    <div class="help deactive">
+    <div class="help init-help deactive">
         <div class="help-screen" @click="handelDeactivate"/>
         <div class="help-container">
             <h1>What is Fifty Saving?</h1>
@@ -53,6 +54,9 @@
 </template>
 
 <style scoped>
+    .init-help{
+        display: none;
+    }
     .help-screen{
         background-color: rgba(0,0,0,0.5);
         width: 100%;
@@ -62,7 +66,7 @@
     }
     .help-container {
         width: 350px;
-        height: 350px;
+        height: 600px;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -143,8 +147,14 @@
     }
     @media (min-width: 900px){
         .help-container{
-            width: 40%;
-            height: 82%;
+            width: 70%;
+            height: 90%;
+        }
+    }
+    @media (min-width: 1200px){
+        .help-container{
+            width: 45%;
+            height: 76%;
         }
     }
 </style>

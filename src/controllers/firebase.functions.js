@@ -34,7 +34,7 @@ export const getStorage = async (id) => {
       storage = await getDocs(stateQuery);
     } 
     else {
-      checkDay({ ...storage.docs[0].data(), id: storage.docs[0].id }, today);
+      checkDay({ ...storage.docs[0].data(), id: storage.docs[0].id }, today, id);
     } 
     storage = { ...storage.docs[0].data(), id: storage.docs[0].id }
     return storage
@@ -59,10 +59,11 @@ export const createStorage = async (id, today) => {
   }
 };
 
-export const updateStorage = async (id, storage) => {
+export const updateStorage = async (id, storage, authId) => {
   try {
-    console.log(id)
-    await updateDoc(doc(storageColection, id), storage);
+    await updateDoc(doc(storageColection, id), storage).then(() => {
+      getStorage(authId);
+    });
   } catch (error) {
     console.error(error);
   } finally {
@@ -89,7 +90,7 @@ const checkDay = (storage, today, id, test = false) => {
       },
       numbers: numbers,
     };
-    updateStorage(storage.id, newStorage);
+    updateStorage(storage.id, newStorage, id);
   }
 };
 

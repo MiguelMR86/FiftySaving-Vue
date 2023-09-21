@@ -41,7 +41,7 @@ export const useStore = defineStore('store', () => {
         storage.value.numbers = storage.value.numbers.filter(n => n != number)
         storage.value.day.lastDigit = Number(number)
         storage.value.day.dailySpin = true
-        updateStorage(storage.value.id, storage.value)
+        updateStorage(storage.value.id, storage.value, auth.currentUser.uid)
         dailySpin.value = storage.value.day.dailySpin
     }
 
