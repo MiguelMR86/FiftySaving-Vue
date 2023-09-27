@@ -1,9 +1,12 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { auth } from '../config/firebase.js'
-import { getStorage, updateStorage, createStorage, calculationAlgorithm } from '../controllers/firebase.functions.js'
+import * as functions from '../controllers/firebase.functions.js'
 
 export const useStore = defineStore('store', () => {
+
+    const { createStorage, getStorage, updateStorage, checkLocalStorage, calculationAlgorithm } = functions
+
     const storage = ref(null)
     const onSpin = ref(false)
     const dailySpin = ref(false)
