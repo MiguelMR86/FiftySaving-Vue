@@ -10,6 +10,8 @@ export const useStore = defineStore('store', () => {
     const storage = ref(null)
     const onSpin = ref(false)
     const dailySpin = ref(false)
+    const user = ref(null);
+    const loading = ref(true)
     
     const setStorage = (id) => {
         getStorage(id).then(newStorage => {
@@ -62,6 +64,8 @@ export const useStore = defineStore('store', () => {
         storage,
         onSpin,
         dailySpin,
+        user,
+        loading,
         setStorage,
         updateOnSpin,
         handleSpin,

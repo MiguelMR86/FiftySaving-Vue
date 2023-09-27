@@ -9,30 +9,34 @@
   import Modal from './components/Modal.vue';
   import Loader from './components/Loader.vue';
   
-  const sotre = useStore()
-  const user = ref(null);
+  const store = useStore()
 
   onMounted(() => {
     auth.onAuthStateChanged((authCurrentuser) => {
       if (authCurrentuser) {
-        user.value = authCurrentuser;
-        sotre.setStorage(authCurrentuser.uid)
+        store.user = authCurrentuser;
+        store.setStorage(authCurrentuser.uid)
       } 
     });
+    if (store && auth) {
+      store.loading = false
+    }
   });
 
 </script>
 
 <template>
-  <div v-if="user && sotre.storage" class="app">
-      <Header />
-      <Main v-if="user"/>
-      <Login v-else-if="!user"/>
-      <LogoutBtn v-if="user"/>
-      <Modal />
-  </div>
-  <div class="app" v-else>
+  <div class="app" v-if="store.loading">
     <Loader />
+  </div>
+  <div v-else class="app">
+      <Header />
+      <div v-if="store.user">
+        <Main/>
+        <LogoutBtn />
+      </div>
+      <Login v-else-if="!store.user"/>
+      <Modal />
   </div>
 </template>
 
